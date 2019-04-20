@@ -1,1 +1,1 @@
-from simon import simon
+from .simon import *
