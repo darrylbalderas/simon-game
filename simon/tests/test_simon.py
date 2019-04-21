@@ -24,13 +24,13 @@ class TestSimon(unittest.TestCase):
         self.assertEqual(simon.validate_answers('a23a'), (0, False))
         self.assertEqual(simon.validate_answers('15349'), (1, False))
         self.assertEqual(simon.validate_answers('12 349'), (2,False))
-        self.assertEqual(simon.validate_answers('13""49'), (2,False))    
+        self.assertEqual(simon.validate_answers('13""49'), (2,False))
         self.assertEqual(simon.validate_answers('4321'), (None, True))
     
     def test_check_answers(self):
         self.assertEqual(simon.is_correct([1,2,3], [1,3,4]), False)
-        self.assertEqual(simon.is_correct([1,2,3], [1,2,3]), False)
-        self.assertEqual(simon.is_correct([1,2], [1,2,3]), True)
+        self.assertEqual(simon.is_correct([1,2,3], [1,2,3]), True)
+        self.assertEqual(simon.is_correct([1,2], [1,2,3]), False)
 
 
 if __name__ == "__main__":

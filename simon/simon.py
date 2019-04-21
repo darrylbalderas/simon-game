@@ -5,23 +5,22 @@ import time
 import random
 
 
-def continue_game(play_again=False) -> bool:
+def continue_game(play_again=False):
     if play_again:
         message = "Want to play \
-again this game (Hit any key to continue or 'q' to quit): "
+again (Hit any key to continue or 'q' to quit): "
     else:
         message = "Want to play \
 (Hit any key to continue or 'q' to quit): "
-        
-    choice = input(message)
+    choice = get_input(message)
     return True if choice.lower() != 'q' else False
 
 
-def breaks(n=0) -> str:
+def breaks(n=0):
     return "\n"*n
 
 
-def clear_output(wait_time=0) -> None:
+def clear_output(wait_time=0):
     time.sleep(wait_time)
     if 'linux' in sys.platform or 'darwin' == sys.platform:
         os.system('clear') 
@@ -29,7 +28,7 @@ def clear_output(wait_time=0) -> None:
         os.system('cls') 
 
 
-def level_message(sequence: list, level: int) -> None:
+def level_message(sequence, level):
     message = "\033[1;95mSequence {}:\n\n\033[4m{}".format(level, " ".join(map(str, sequence)))
     return message
 
@@ -55,12 +54,12 @@ def print_message(message="", sleep_time=2):
     reset_term_colors()
 
 
-def create_simon(level: int) -> list:
+def create_simon(level):
     return random.randint(1, 4)
 
 
 def print_failing_index(index):
-    space = (index)*' '
+    space = (index) * ' '
     print(space + '^')
 
 
@@ -69,7 +68,7 @@ def input_error_message(invalid_msg, index, answers):
     print_failing_index(index + len(invalid_msg))
 
 
-def validate_answers(answers) -> tuple:
+def validate_answers(answers):
     invalid_msg = "Answers can only be numbers from 1 through 4: "
     for index, value in enumerate(answers):
         try:
@@ -92,6 +91,12 @@ def is_correct(level, user):
     return True
 
 
+def get_input(message):
+    if sys.version_info[0] < 3:
+        return raw_input(message)
+    return input(message)
+
+
 def main():
     print_message()
     lost = False
@@ -108,18 +113,17 @@ def main():
             user_answer = []
             while not valid:
                 clear_output(1)
-                user_input = input("Type sequence: ")
+                user_input = get_input("Type sequence: ")
                 index, valid,  = validate_answers(user_input)
             user_answer = [int(val) for val in user_input ]
-            print(sequence)
-            print(user_answer)
-            print(is_correct(sequence, user_answer))
+            print("Real Answer: {}".format(sequence))
+            print("Your Answer: {}".format(user_answer))
             if not is_correct(sequence, user_answer):
                 lost = True
                 print("Sorry you lost !!!")
             level += 1
         if lost:
-            play_game = continue_game()
+            play_game = continue_game(True)
             lost = False
 
 
