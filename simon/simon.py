@@ -6,6 +6,7 @@ import random
 
 
 def continue_game(play_again=False):
+    """ Get input to decide to play simon game"""
     if play_again:
         message = "Want to play \
 again (Hit any key to continue or 'q' to quit): "
@@ -17,10 +18,12 @@ again (Hit any key to continue or 'q' to quit): "
 
 
 def breaks(n=0):
+    """Return n number of newline characters"""
     return "\n"*n
 
 
 def clear_output(wait_time=0):
+    """ Clear terminal output"""
     time.sleep(wait_time)
     if 'linux' in sys.platform or 'darwin' == sys.platform:
         os.system('clear') 
@@ -29,15 +32,19 @@ def clear_output(wait_time=0):
 
 
 def level_message(sequence, level):
-    message = "\033[1;95mSequence {}:\n\n\033[4m{}".format(level, " ".join(map(str, sequence)))
+    """Return simon level message which contains the simon sequence"""
+    message = "\033[1;95mSequence {}:\n\n\033[4m{}".format(level, 
+        " ".join(map(str, sequence)))
     return message
 
 
 def reset_term_colors():
+    """ Resets terminal colors"""
     print("\33[0m")
 
 
 def print_message(message="", sleep_time=2):
+    """Print message with simon game header"""
     header = """\033[1;32;40m
  .----..-..-.   .-. .----. .-. .-.    .---.   .--.  .-.   .-..----.  ||| |||
 { {__  | ||  `.'  |/  {}  \|  `| |   /   __} / {} \ |  `.'  || {_    ||| |||
@@ -55,20 +62,24 @@ def print_message(message="", sleep_time=2):
 
 
 def create_simon(level):
+    """Returns a number between 1 through 4"""
     return random.randint(1, 4)
 
 
 def print_failing_index(index):
+    """Prints where the index for simon sequence is invalid"""
     space = (index) * ' '
     print(space + '^')
 
 
 def input_error_message(invalid_msg, index, answers):
+    """Prints error messag"""
     print(invalid_msg + answers)
     print_failing_index(index + len(invalid_msg))
 
 
 def validate_answers(answers):
+    """Validate answers are 1 through 4 and only numbers"""
     invalid_msg = "Answers can only be numbers from 1 through 4: "
     for index, value in enumerate(answers):
         try:
@@ -82,7 +93,8 @@ def validate_answers(answers):
     return None, True
 
 
-def is_correct(level, user):  
+def is_correct(level, user):
+    """Checks if user input matches level sequence"""
     if len(level) != len(user):
         return False
     for i in range(len(level)):
@@ -92,6 +104,7 @@ def is_correct(level, user):
 
 
 def get_input(message):
+    """Get user's input from command line"""
     if sys.version_info[0] < 3:
         return raw_input(message)
     return input(message)
@@ -116,11 +129,11 @@ def main():
                 user_input = get_input("Type sequence: ")
                 index, valid,  = validate_answers(user_input)
             user_answer = [int(val) for val in user_input ]
-            print("Real Answer: {}".format(sequence))
-            print("Your Answer: {}".format(user_answer))
             if not is_correct(sequence, user_answer):
-                lost = True
+                print("Real Answer: {}".format(sequence))
+                print("Your Answer: {}".format(user_answer))
                 print("Sorry you lost !!!")
+                lost = True
             level += 1
         if lost:
             play_game = continue_game(True)
