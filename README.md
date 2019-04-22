@@ -30,3 +30,26 @@ Python package for playing the game [Simon](https://en.wikipedia.org/wiki/Simon_
     > (virtual env must be started to install dependencies)
      
     `pip install -r requirements.txt`
+
+## Create python package
+
+* Install twine and create distribution folder
+
+```
+pip install twine
+python setup.py sdist
+```
+
+* Upload to the pypi test repository
+
+```
+twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+pip install --index-url https://test.pypi.org/simple/ simon_game
+```
+
+* Upload to the pypi repository
+
+```
+twine upload dist/*
+pip install simon_game
+```
