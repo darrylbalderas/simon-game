@@ -5,13 +5,12 @@ Python package for playing the game [Simon](https://en.wikipedia.org/wiki/Simon_
 ## Table of Contents
 1. [Motivation](#motivation)
 2. [Installation](#installation)
-3. [File Structure](#file-structure)
-4. [Licensing, Authors, and Acknowledgements](#licensing)
+2. [Create python package](#package)
+
+## Motivation<a name="motivation"></a>
 
 
-## Motivation
-
-## Installation
+## Installation<a name="installation"></a>
 
 - Create a python3 virtual environment
 
@@ -31,7 +30,7 @@ Python package for playing the game [Simon](https://en.wikipedia.org/wiki/Simon_
      
     `pip install -r requirements.txt`
 
-## Create python package
+## Create python package<a name="package"></a>
 
 * Install twine and create distribution folder
 
